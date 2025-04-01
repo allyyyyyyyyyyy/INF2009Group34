@@ -1,11 +1,11 @@
-INF 2009 Group 34
+# INF 2009 Group 34
 
-Project Description
+## Project Description
 
-Block Diagram
+## Block Diagram
 
-Accelerometer
+## Accelerometer
 
-Eye tracking using webcam
+## Eye tracking using webcam
 
-Fatigue Detection system
+## Fatigue Detection system
