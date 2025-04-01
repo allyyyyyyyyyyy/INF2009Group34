@@ -10,7 +10,7 @@ Add image if needed
 If needed..
 
 ## Accelerometer
-What its used for, how its done, results etc
+What its used for, how its done, results etc etc
 
 ## Eye tracking using webcam
 What its used for, how its done, results etc
