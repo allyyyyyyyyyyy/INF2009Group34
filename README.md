@@ -159,7 +159,11 @@ If fatigue is detected, alarm sounds until driver is awake.
 
 <img src="assets/alarm.jpg" alt="drawing" width="350"/>
 
+If driver does not respond with the correct word in time
+
 <img src="assets/alarm_stopped.jpg" alt="drawing" width="350"/>
+
+If driver manages to respond with the correct word
 
 <img src="assets/alarm_success.jpg" alt="drawing" width="350"/>
 
