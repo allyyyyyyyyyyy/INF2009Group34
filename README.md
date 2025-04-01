@@ -149,7 +149,6 @@ The Fatigue Decision System is used to check if the driver is fatigued based on 
 3. vosk - Used for listening to the driver and converting audio input into text
 4. pyaudio = Used for listening to the driver
 5. paho.mqtt.client = Used for recieving and sending messages between components
-6. threading = Used for starting and ending Fatigue Detection Loop
 
 ### How its done 
 
