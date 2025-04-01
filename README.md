@@ -144,10 +144,15 @@ What its used for, how its done, results etc
 The Fatigue Decision System is used to check if the driver is fatigued based on the results of the various hardware components like Accelerometer, Microphone and Camera. If the Accelerometer or Camera detects signs of fatigue through the acceleration speed, steering wheel movements or eye movements, a message stating that the driver is fatigued will be sent by MQTT to the main system. Once the system recieves the message stating the driver's fatigue, the microphone will then prompt and listen for the driver to say he is not fatigued. If he does not confirm that he is not fatigued, then an alarm will sound through the chosen audio output device of the system.
 
 ### Libraries
-1. portaudio19-dev
-2. pyaudio
-3. sounddevice
+1. pyttsx3 - Used for text-to-speech, to communicate with the driver
+2. pygame - Used for loading the Alarm audio file
+3. vosk - Used for listening to the driver and converting audio input into text
+4. pyaudio = Used for listening to the driver
+5. paho.mqtt.client = Used for recieving and sending messages between components
+6 threading = Used for starting and ending Fatigue Detection Loop
 
 ### How its done 
 
 ### Results
+If fatigue is detected, alarm sounds until driver is awake.
+If fatigue is not detected, no alarm is sounded.
