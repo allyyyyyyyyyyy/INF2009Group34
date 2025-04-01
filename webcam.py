@@ -42,7 +42,7 @@ timer = reset_timer_value
 
 def startMQTT():
   client = mqtt.Client()
-  client.connect("192.168.238.117", 1883)
+  client.connect("localhost", 1883)
   return client
 
 def sendMQTT(message):
