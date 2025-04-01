@@ -14,6 +14,7 @@ If needed..
 
 ## Accelerometer
 
+
 ### Description
 
 The accelerometer used is a LIS3DH which is mounted to the Raspberry Pi which is mounted to the vehicles steering wheel. Its goal is to detect the steering wheel movements as well as the acceleration of the car. These measurements will be used to detect potential fatigue in the driver or signs of dangerous driving.
@@ -82,6 +83,17 @@ Will send alerts through the system by MQTT
 <img src="assets/alarm.jpg" alt="drawing" width="500"/>
 
 For more information, [see](https://www.pyimagesearch.com/2017/05/08/drowsiness-detection-opencv/)
+
+### Honourable Mentions
+
+During our research, we explored an approach that utilizes a combination of Deep Learning (TensorFlow), Multimodal Applied Machine Learning (MediaPipe), and data preprocessing and model evaluation (Scikit-Learn). This method supports multiple input types, including images, videos, and live webcam feeds. It employs MobileNet and YOLOv5 to detect phones, enhancing performance, and can track facial features such as the mouth and lips. Additionally, the system continuously trains and updates the MobileNet model for improved accuracy over time. More details can be found in this [repo](https://github.com/jhan15/driver_monitoring.git)
+
+
+While this approach offers a more comprehensive assessment of drowsiness by incorporating multiple criteria, we ultimately did not adopt it for our use case due to several challenges. First, as a fully deployed application, its tightly integrated components made it difficult to modularize for our specific needs without replicating significant portions of the original work. Additionally, running it on a Raspberry Pi resulted in performance issues, likely due to the heavy computational load and bloated dependencies, which exceeded the Pi’s hardware limitations.
+
+Another key reason is that training deep learning models on edge devices, like a Raspberry Pi, is generally inefficient compared to training on the cloud. Training requires high computational power, which edge devices lack, leading to significantly longer training times, thermal throttling, and storage limitations. Cloud environments provide high-performance GPUs/TPUs, scalable resources, and faster iteration cycles, making them the preferred choice for model training. Edge devices are better suited for running optimized inference models (e.g., TensorFlow Lite, YOLOv5n) rather than full-scale model training.
+
+Given these constraints, we opted for the current approach. This will definitely one of the future improvements that we will venture out.
 
 
 ## Fatigue Decision system
