@@ -8,12 +8,53 @@ Our project aims to develop a driver fatigue and behavior detection system using
 <img src="assets/system-design.png" alt="drawing" width="500"/>
 
 ## Setup
-If needed..
 
-- How to setup the hardware and front end, prerequisites 
+For our project, we made use of 2 Raspberry Pi. One primarily for the accelerometer and act as the MQTT broker, and the other for eye tracking algorithm and voice detection. 
+
+### Raspberry Pi 1 (Accelerometer)
+
+Place the following files in the Raspberry Pi
+
+1. [accel.py](accel.py)
+2. [config.json](config.json)
+
+Install the required Python Libraries
+```
+pip install matplotlib
+pip install adafruit-circuitpython-lis3dh
+pip install paho-mqtt
+```
+
+Run the following command to get the IP address of the MQTT broker. Replace the hostname in [accel.py](accel.py) (line 66) with the obtained IP address
+
+`hostname -I` 
+
+Run the file [accel.py](accel.py). Do not move the Raspberry Pi while it is being initializing as it affects the accelerometer reading.
+
+### Raspberry Pi 2 (Eye tracking and voice detection)
+
+Place the following files in the Raspberry Pi
+
+1. [webcam.py](webcam.py)
+2. [decision.py](decision.py)
+3. [model](models)
+4. [models](models/)
+5. [config.json](config.json)
+6. [test.wav](test.wav). Alternatively, a sound track of your choice
+
+Install the following
+```
+pip install cmake
+sudo apt-get install libatlas-base-dev  
+pip install dlib
+pip install pyttsx3 pygame vosk pyaudio paho-mqtt
+```
+
+Modify the host IP address in [webcam.py](webcam.py) (line 45) and [decision.py](decision.py) (line 97) to the IP address of the MQTT broker
+
+Run both [decision.py](decision.py) and [webcam.py](decision.py)
 
 ## Accelerometer
-
 
 ### Description
 
@@ -87,7 +128,6 @@ For more information, [see](https://www.pyimagesearch.com/2017/05/08/drowsiness-
 ### Honourable Mentions
 
 During our research, we explored an approach that utilizes a combination of Deep Learning (TensorFlow), Multimodal Applied Machine Learning (MediaPipe), and data preprocessing and model evaluation (Scikit-Learn). This method supports multiple input types, including images, videos, and live webcam feeds. It employs MobileNet and YOLOv5 to detect phones, enhancing performance, and can track facial features such as the mouth and lips. Additionally, the system continuously trains and updates the MobileNet model for improved accuracy over time. More details can be found in this [repo](https://github.com/jhan15/driver_monitoring.git)
-
 
 While this approach offers a more comprehensive assessment of drowsiness by incorporating multiple criteria, we ultimately did not adopt it for our use case due to several challenges. First, as a fully deployed application, its tightly integrated components made it difficult to modularize for our specific needs without replicating significant portions of the original work. Additionally, running it on a Raspberry Pi resulted in performance issues, likely due to the heavy computational load and bloated dependencies, which exceeded the Pi’s hardware limitations.
 
