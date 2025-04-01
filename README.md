@@ -13,7 +13,34 @@ If needed..
 - How to setup the hardware and front end, prerequisites 
 
 ## Accelerometer
-What its used for, how its done, results etc etc
+
+### Description
+
+The accelerometer used is a LIS3DH which is mounted to the Raspberry Pi which is mounted to the vehicles steering wheel. Its goal is to detect the steering wheel movements as well as the acceleration of the car. These measurements will be used to detect potential fatigue in the driver or signs of dangerous driving.
+
+### Libraries
+1. busio: Used for I2C protocol to communicate with the accelerometer
+2. adafruit_lis3dh: Used to make interfacing with the accelerometer easier
+3. matplotlib: used for visualizing the changes in car movement and steering movement
+
+### How its done
+
+The Raspberry Pi communicates with the Accelerometer using I2C protocol and we made use of the Adafruit CircuitPython library in Python to record accelerometer data. The readings from the accelerometer are then put into a FIFO queue for the purposes for decision making and visualisation.
+
+The accelerometer decision system keep tracks of sudden changes of steering movements 'steering_threshold' or sudden acceleration or deceleration (example jam braking) 'accel_threshold' and keep a tally.  These values are reset by a percentage 'percentage_reduce' every time period 'timer_value'
+
+If the number of occurrences exceed a specified threshold 'steering_movement_threshold' and 'sudden_brake_threshold' it will deem that the driver is fatigued/driving dangerously and send a message through MQTT to the central decision system. After a set time 'steering_cooldown' the driver state in the system will reset. 
+
+<img src="assets/Graph_visuals.jpg" alt="graph" width="200"/>
+
+The visualisation are created using Matplotlib primarily used for testing and configuration of thresholds. It can be omitted during runtime to free up computing resources.
+
+### Results
+
+Detecting driver fatigue
+
+<img src="assets/accelrometer_detection.jpg" alt="graph" width="200"/>
+
 
 ## Eye tracking using webcam
 
