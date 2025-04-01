@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Driver Fatigue Settings</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 700px;
+      margin: auto;
+      padding: 1em;
+      background: #f9f9f9;
+    }
+    .group-box {
+      border: 1px solid #ccc;
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 30px;
+      background: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    }
+    .group-title {
+      font-size: 1.3em;
+      font-weight: bold;
+      margin-bottom: 1em;
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin-top: 1.2em;
+      font-weight: bold;
+    }
+    .description {
+      font-size: 0.9em;
+      color: #666;
+      margin-bottom: 0.5em;
+    }
+    input[type="range"] {
+      width: 100%;
+    }
+    .value {
+      font-size: 0.9em;
+      color: #444;
+    }
+    button {
+      display: block;
+      margin: 2em auto 0;
+      padding: 0.5em 1.5em;
+      font-size: 1em;
+      border: none;
+      background-color: #008CBA;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0075a4;
+    }
+  </style>
+</head>
+<body>
+  <h2>Driver Fatigue Threshold Configuration</h2>
+  <form method="post">
+
+    <!-- Accelerometer -->
+    <div class="group-box">
+      <div class="group-title">Accelerometer Configuration</div>
+      {% for key, value in config['accelerometer'].items() %}
+        <label for="{{ key }}">{{ key.replace("_", " ").capitalize() }}</label>
+        <div class="description">
+          {% if key == 'steering_threshold' %}
+            Intensity of steering to be counted as swerving 
+          {% elif key == 'timer_value' %}
+            Interval (in seconds) between when the counter reduces 
+          {% elif key == 'percentage_reduce' %}
+            Percentage to reduce per interval 
+          {% elif key == 'percentage_reduce_fatigue' %}
+            Percentage to reduce per interval if driver is fatigued
+          {% elif key == 'steering_movement_threshold' %}
+            Number of swerves to count as fatigue
+          {% elif key == 'steering_cooldown' %}
+            Time in seconds to reset fatigue state
+          {% elif key == 'accel_threshold' %}
+            Intensity of acceleration/deceleration to count as jam braking
+          {% elif key == 'sudden_brake_threshold' %}
+            Number of jam brakes to be considered fatigue 
+          {% endif %}
+        </div>
+        <input
+          type="range"
+          id="{{ key }}"
+          name="accelerometer-{{ key }}"
+          value="{{ value }}"
+          {% if key == 'steering_threshold' %}
+            min="0" max="10" step="0.1"
+          {% elif key == 'percentage_reduce' or key == 'percentage_reduce_fatigue' %}
+            min="0" max="1" step="0.01"
+          {% elif key == 'timer_value' or key == 'steering_cooldown' %}
+            min="60" max="600" step="1"
+          {% elif key == 'steering_movement_threshold' or key == 'sudden_brake_threshold' %}
+            min="1" max="50" step="1"
+          {% elif key == 'accel_threshold' %}
+            min="1" max="10" step="1"
+          {% endif %}
+          oninput="document.getElementById('{{ key }}_val').innerText = this.value"
+        >
+        <div class="value">Value: <span id="{{ key }}_val">{{ value }}</span></div>
+      {% endfor %}
+    </div>
+
+    <!-- Webcam -->
+    <div class="group-box">
+      <div class="group-title">Webcam Configuration</div>
+      {% for key, value in config['webcam'].items() %}
+        <label for="{{ key }}">{{ key.replace("_", " ").capitalize() }}</label>
+        <div class="description">
+          {% if key == 'threshold' %}
+            Eye aspect ratio threshold to detect closed eyes
+          {% elif key == 'frame_check' %}
+            Frames to wait before triggering fatigue alert
+          {% elif key == 'blink_threshold' %}
+            EAR spike threshold to detect a blink
+          {% elif key == 'blink_time_window' %}
+            Time window (seconds) for counting blinks
+          {% elif key == 'blink_count_threshold' %}
+            Blink count threshold in given time window
+          {% elif key == 'reset_delay' %}
+            Seconds before blink counter resets
+          {% endif %}
+        </div>
+        <input
+          type="range"
+          id="{{ key }}"
+          name="webcam-{{ key }}"
+          value="{{ value }}"
+          {% if key in ['threshold', 'blink_threshold'] %}
+            min="0.1" max="0.5" step="0.01"
+          {% elif key == 'blink_time_window' or key == 'reset_delay' %}
+            min="0.5" max="20" step="0.1"
+          {% elif key == 'frame_check' or key == 'blink_count_threshold' %}
+            min="1" max="100" step="1"
+          {% endif %}
+          oninput="document.getElementById('{{ key }}_val').innerText = this.value"
+        >
+        <div class="value">Value: <span id="{{ key }}_val">{{ value }}</span></div>
+      {% endfor %}
+    </div>
+
+    <button type="submit">Save Settings</button>
+  </form>
+</body>
+</html>
