@@ -138,3 +138,5 @@ Given these constraints, we opted for the current approach. This will definitely
 
 ## Fatigue Decision system
 What its used for, how its done, results etc
+
+The Fatigue Decision System is used to check if the driver is fatigued based on the results of the various hardware components like Accelerometer, Microphone and Camera. If the system detects fatigue or reckless driving behaviour from the driver, the microphone will prompt and listen for the driver to say he is not fatigued. If he does not confirm that he is not faigued, then an alarm will sound through the chosen audio output device of the system.
