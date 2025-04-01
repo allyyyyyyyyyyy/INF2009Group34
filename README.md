@@ -4,6 +4,8 @@
 
 ## Block Diagram
 
+## Setup
+
 ## Accelerometer
 
 ## Eye tracking using webcam
