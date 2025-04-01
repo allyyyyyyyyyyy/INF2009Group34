@@ -73,7 +73,7 @@ The accelerometer decision system keep tracks of sudden changes of steering move
 
 If the number of occurrences exceed a specified threshold 'steering_movement_threshold' and 'sudden_brake_threshold' it will deem that the driver is fatigued/driving dangerously and send a message through MQTT to the central decision system. After a set time 'steering_cooldown' the driver state in the system will reset. 
 
-<img src="assets/Graph_visuals.jpg" alt="graph" width="200"/>
+<img src="assets/Graph_visuals.jpg" alt="graph" width="500"/>
 
 The visualisation are created using Matplotlib primarily used for testing and configuration of thresholds. It can be omitted during runtime to free up computing resources.
 
@@ -81,7 +81,7 @@ The visualisation are created using Matplotlib primarily used for testing and co
 
 Detecting driver fatigue
 
-<img src="assets/accelrometer_detection.jpg" alt="graph" width="200"/>
+<img src="assets/accelrometer_detection.jpg" alt="graph" width="350"/>
 
 
 ## Eye tracking using webcam
@@ -156,4 +156,11 @@ The main Fatigue Detection function uses Pyttsx3 to prompt the user to say a ran
 
 ### Results
 If fatigue is detected, alarm sounds until driver is awake.
+
+<img src="assets/alarm.jpg" alt="drawing" width="350"/>
+
+<img src="assets/alarm_stopped.jpg" alt="drawing" width="350"/>
+
+<img src="assets/alarm_success.jpg" alt="drawing" width="350"/>
+
 If fatigue is not detected, no alarm is sounded.
