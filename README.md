@@ -1,7 +1,7 @@
 # INF 2009 Group 34
 
 ## Project Description
-Talk about the project
+Our project aims to develop a driver fatigue and behavior detection system using a camera, motion sensors, and an accelerometer to monitor driver alertness in real-time. The system and camera tracks eye movement, blinking frequency, and steering patterns to detect signs of fatigue or reckless driving. The raspberry Pi then processes the data locally, ensuring low-latency edge computing without internet or cloud dependency. If unsafe behavior is detected, a speaker triggers an audio alert, prompting the driver to take corrective action. This system enhances road safety by providing real-time monitoring and immediate intervention to prevent accidents.
 
 ## Block Diagram
 
