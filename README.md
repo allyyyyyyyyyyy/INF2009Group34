@@ -137,7 +137,6 @@ Given these constraints, we opted for the current approach. This will definitely
 
 
 ## Fatigue Decision system
-What its used for, how its done, results etc
 
 ### Description
 
@@ -153,7 +152,7 @@ The Fatigue Decision System is used to check if the driver is fatigued based on 
 ### How its done 
 The second Raspberry Pi for the main system is connected to a Microphone and an Output Audio Device, which for this project is an Earpiece. It checks for the payload of the  MQTT messages from the first Raspberry Pi connected to the Webcam and Accelerometer through "message.payload.decode()' and if the message is 'Fatigue', then it triggers the main Fatigue Detection function. 
 
-The main Fatigue Detection function uses Pyttsx3 to prompt the user for confirmation that he is not fatigued through the Text-to-Speech feature. Pyaudio is then used to capture the audio input before Vosk is used to process and analyse the audio input. If the audio input is analysed to have contained the phrase "I am awake now", then the system can confirm that the driver has responded correctly and therefore awake. However, if the audio input did not seem to have the phrase, then Pyaudio and Pygame is used to load and play an alarm sound which will be sounded until the driver confirms he is awake.
+The main Fatigue Detection function uses Pyttsx3 to prompt the user to say a randomly generated word for confirmation that he is not fatigued through the Text-to-Speech feature. Pyaudio is then used to capture the audio input before Vosk is used to process and analyse the audio input. If the audio input is analysed to have contained the generated phrase, then the system can confirm that the driver has responded correctly and therefore awake. However, if the audio input did not seem to have the phrase, then Pyaudio and Pygame is used to load and play an alarm sound which will be sounded until the driver confirms he is awake by stating the phrase "I am awake now".
 
 ### Results
 If fatigue is detected, alarm sounds until driver is awake.
