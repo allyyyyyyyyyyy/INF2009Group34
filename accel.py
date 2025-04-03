@@ -143,6 +143,20 @@ def read_accel_data_x():
         x_data_queue.put(x)
         time.sleep(0.1)  # Adjust the sampling rate as needed
 
+def read_config(client, userdata, message):
+    config = json.loads(message.payload.decode())
+    with open("config.json", "w") as f:
+        json.dump(config, f, indent=2)
+
+client = startMQTT()
+client.subscribe("Config")
+client.on_message = read_config
+client.loop_start()
+print("Checking config")
+time.sleep(2)
+client.unsubscribe("Config")
+client.loop_stop()
+
 # Load config
 with open('config.json', 'r') as file:
     data = json.load(file)
@@ -157,7 +171,7 @@ with open('config.json', 'r') as file:
     
 # Start the data reading thread
 calibrate_default()
-client = startMQTT()
+
 threading.Thread(target=read_accel_data_x, daemon=True).start()
 threading.Thread(target=read_accel_data_y, daemon=True).start()
 threading.Thread(target=check_fatigue, daemon=True).start()

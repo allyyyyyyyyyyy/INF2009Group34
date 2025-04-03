@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 import json
 import os
+import paho.mqtt.client as mqtt
 
 app = Flask(__name__)
 CONFIG_FILE = "config.json"
@@ -12,8 +13,11 @@ def load_config():
         return json.load(f)
 
 def save_config(data):
+    client = mqtt.Client("Publisher")
+    client.connect("192.168.238.117 ", 1883)
+    client.publish("Config", json.dumps(data), retain=True)
     with open(CONFIG_FILE, "w") as f:
-        json.dump(data, f, indent=2)
+         json.dump(data, f, indent=2)
 
 @app.route("/", methods=["GET", "POST"])
 def index():

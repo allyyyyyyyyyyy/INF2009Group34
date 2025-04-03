@@ -150,7 +150,23 @@ def read_camera():
     time.sleep(0.1)
   cap.release()
   
-  # Load config
+client = startMQTT()
+
+def read_config(client, userdata, message):
+    config = json.loads(message.payload.decode())
+    with open("config.json", "w") as f:
+        json.dump(config, f, indent=2)
+
+client = startMQTT()
+client.subscribe("Config")
+client.on_message = read_config
+client.loop_start()
+print("Checking config")
+time.sleep(2)
+client.unsubscribe("Config")
+client.loop_stop()
+
+# Load config
 with open('config.json', 'r') as file:
   data = json.load(file)
   threshold = float(data.get("threshold", threshold))
@@ -161,7 +177,7 @@ with open('config.json', 'r') as file:
   reset_delay = float(data.get("reset_delay", reset_delay))
 
 # Start the threads
-client = startMQTT()
+
 threading.Thread(target=read_camera, daemon=True).start()
 threading.Thread(target=process_frame, daemon=True).start()
 threading.Thread(target=check_fatigue, daemon=True).start()
